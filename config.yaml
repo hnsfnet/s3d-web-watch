@@ -1,16 +1,48 @@
 settings:
   log_file: changes.log
   content_dir: .contents
+  report_dir: reports
+
+notifiers:
+  email:
+    smtp_server: smtp.example.com
+    smtp_port: 465
+    use_ssl: true
+    username: your_email@example.com
+    password: your_password
+    sender: your_email@example.com
+    recipients:
+      - admin@example.com
+
+  wecom:
+    webhook_url: https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=your-key
+
+  webhook:
+    url: https://your-api.example.com/notify
+    method: POST
+    headers:
+      Content-Type: application/json
+      Authorization: Bearer your-token
 
 websites:
   - name: "Example Homepage"
     url: "https://example.com"
     interval_minutes: 30
+    selector: "body"
+    notifiers:
+      - email
+      - wecom
 
   - name: "Python Downloads"
     url: "https://www.python.org/downloads/"
     interval_minutes: 60
+    selector: ".download-list-widget"
+    notifiers:
+      - email
 
   - name: "News Site"
     url: "https://news.ycombinator.com"
     interval_minutes: 15
+    selector: "#hnmain .itemlist"
+    notifiers:
+      - webhook
