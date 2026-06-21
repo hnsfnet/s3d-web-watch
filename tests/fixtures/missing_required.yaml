@@ -1,0 +1,6 @@
+settings:
+  log_file: test.log
+
+websites:
+  - name: "Missing URL"
+    interval_minutes: 30

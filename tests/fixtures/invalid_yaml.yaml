@@ -1,0 +1,8 @@
+settings:
+  log_file: test.log
+  content_dir: contents
+
+websites:
+  - name: "Broken YAML
+    url: "https://example.com"
+    interval_minutes: 30

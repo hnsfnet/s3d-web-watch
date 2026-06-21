@@ -1,0 +1,45 @@
+settings:
+  log_file: test_changes.log
+  content_dir: .test_contents
+  report_dir: test_reports
+  default_timeout_seconds: 10
+  max_failures: 2
+
+notifiers:
+  email:
+    smtp_server: smtp.test.com
+    smtp_port: 465
+    use_ssl: true
+    username: test@test.com
+    password: testpass
+    sender: test@test.com
+    recipients:
+      - admin@test.com
+
+  wecom:
+    webhook_url: https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=test-key
+
+  webhook:
+    url: https://test.example.com/notify
+    method: POST
+    headers:
+      Content-Type: application/json
+      Authorization: Bearer test-token
+
+websites:
+  - name: "Test Site 1"
+    url: "https://test1.example.com"
+    interval_minutes: 30
+    selector: "#main"
+    ignore_patterns:
+      - 'token="[A-Za-z0-9]+"'
+      - 'data-timestamp="\d+"'
+    notifiers:
+      - email
+      - wecom
+
+  - name: "Test Site 2"
+    url: "https://test2.example.com"
+    interval_minutes: 60
+    notifiers:
+      - webhook
