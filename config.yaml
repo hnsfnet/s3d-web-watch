@@ -2,6 +2,8 @@ settings:
   log_file: changes.log
   content_dir: .contents
   report_dir: reports
+  default_timeout_seconds: 30
+  max_failures: 3
 
 notifiers:
   email:
@@ -28,7 +30,11 @@ websites:
   - name: "Example Homepage"
     url: "https://example.com"
     interval_minutes: 30
+    timeout_seconds: 30
     selector: "body"
+    ignore_patterns:
+      - "timestamp=\"\\d+\""
+      - "csrf_token=\"[A-Za-z0-9]+\""
     notifiers:
       - email
       - wecom
@@ -37,12 +43,15 @@ websites:
     url: "https://www.python.org/downloads/"
     interval_minutes: 60
     selector: ".download-list-widget"
+    ignore_patterns:
+      - "data-ads-id=\"[^\"]+\""
     notifiers:
       - email
 
   - name: "News Site"
     url: "https://news.ycombinator.com"
     interval_minutes: 15
+    timeout_seconds: 20
     selector: "#hnmain .itemlist"
     notifiers:
       - webhook
