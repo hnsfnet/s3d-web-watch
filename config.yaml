@@ -1,0 +1,16 @@
+settings:
+  log_file: changes.log
+  content_dir: .contents
+
+websites:
+  - name: "Example Homepage"
+    url: "https://example.com"
+    interval_minutes: 30
+
+  - name: "Python Downloads"
+    url: "https://www.python.org/downloads/"
+    interval_minutes: 60
+
+  - name: "News Site"
+    url: "https://news.ycombinator.com"
+    interval_minutes: 15
